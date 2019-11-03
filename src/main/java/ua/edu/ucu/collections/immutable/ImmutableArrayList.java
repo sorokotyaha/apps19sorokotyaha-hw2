@@ -4,17 +4,17 @@ package ua.edu.ucu.collections.immutable;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
-public class ImmutableArrayList implements ImmutableList{
+public class ImmutableArrayList implements ImmutableList {
     private Object[] lst;
     private int size;
 
-    public ImmutableArrayList(){
+    public ImmutableArrayList() {
         //Class constructor with no arguments//
         this.lst = new Object[0];
         this.size = 0;
-        }
+    }
 
-    public ImmutableArrayList(Object[] list){
+    public ImmutableArrayList(Object[] list) {
         //Class constructor with an argument of some Object array - integer, double, etc//
         checkEmptyArray(list);
         this.lst = Arrays.copyOf(list, list.length);
@@ -31,14 +31,14 @@ public class ImmutableArrayList implements ImmutableList{
         return new ImmutableArrayList(larger);
     }
 
-    private void checkForIndex(int i){
-        if (i < 0 || i>= this.size){
+    private void checkForIndex(int i) {
+        if (i < 0 || i >= this.size) {
             throw new IndexOutOfBoundsException();
         }
     }
 
-    private void checkEmptyArray(Object[] arr){
-        if (arr.length == 0){
+    private void checkEmptyArray(Object[] arr) {
+        if (arr.length == 0) {
             throw new IllegalArgumentException("The list is empty!");
         }
     }
@@ -67,7 +67,7 @@ public class ImmutableArrayList implements ImmutableList{
         /* Copying all the elements from lst from 0 to index exclusive */
         System.arraycopy(this.lst, 0, temp, 0, index);
         /* Copying all the elements from c and putting on the index position*/
-        System.arraycopy(c,0, temp, index, c.length);
+        System.arraycopy(c, 0, temp, index, c.length);
         /* Copying all the rest elements from this.lst to temp*/
         System.arraycopy(this.lst, index, temp, index + c.length, this.size - index);
         return new ImmutableArrayList(temp);
@@ -81,7 +81,7 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public ImmutableList remove(int index) {
-        if (this.size == 0){
+        if (this.size == 0) {
             return new ImmutableArrayList();
         }
         checkForIndex(index);
@@ -102,8 +102,8 @@ public class ImmutableArrayList implements ImmutableList{
     @Override
     public int indexOf(Object e) {
 
-        for (int i = 0; i < this.size; i++){
-            if (this.lst[i] == e){
+        for (int i = 0; i < this.size; i++) {
+            if (this.lst[i] == e) {
                 return i;
             }
         }
@@ -128,7 +128,11 @@ public class ImmutableArrayList implements ImmutableList{
     @Override
     public Object[] toArray() {
         return Arrays.copyOf(this.lst, this.lst.length);
+    }
 
+    @Override
+    public String toString() {
+        return Arrays.toString(toArray());
     }
 
 }
