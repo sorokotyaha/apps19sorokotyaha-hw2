@@ -46,7 +46,8 @@ public class Stack {
             return null;
         }
         Object last = this.linkedlst.getLast();
-        this.linkedlst = (ImmutableLinkedList) this.linkedlst.remove(this.getSize() - 1);
+        this.linkedlst = (ImmutableLinkedList)
+                this.linkedlst.remove(this.getSize() - 1);
         return last;
     }
 

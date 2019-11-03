@@ -57,6 +57,9 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList addAll(Object[] c) {
+        if (isEmpty()){
+            return new ImmutableArrayList(c);
+        }
         return addAll(this.size(), c);
     }
 
