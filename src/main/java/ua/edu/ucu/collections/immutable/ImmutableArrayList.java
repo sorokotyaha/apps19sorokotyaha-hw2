@@ -2,6 +2,7 @@ package ua.edu.ucu.collections.immutable;
 
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 
 public class ImmutableArrayList implements ImmutableList{
     private Object[] lst;
@@ -38,7 +39,7 @@ public class ImmutableArrayList implements ImmutableList{
 
     private void checkEmptyArray(Object[] arr){
         if (arr.length == 0){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The list is empty!");
         }
     }
 
@@ -80,6 +81,9 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public ImmutableList remove(int index) {
+        if (this.size == 0){
+            return new ImmutableArrayList();
+        }
         checkForIndex(index);
         Object[] temp = new Object[this.size - 1];
         System.arraycopy(this.lst, 0, temp, 0, index);
@@ -90,7 +94,6 @@ public class ImmutableArrayList implements ImmutableList{
     @Override
     public ImmutableList set(int index, Object e) {
         checkForIndex(index);
-        checkEmptyArray(this.lst);
         Object[] temp = this.toArray();
         temp[index] = e;
         return new ImmutableArrayList(temp);
@@ -98,7 +101,8 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public int indexOf(Object e) {
-        for (int i = 0; i <= this.size; i++){
+
+        for (int i = 0; i < this.size; i++){
             if (this.lst[i] == e){
                 return i;
             }

@@ -70,19 +70,16 @@ public class ImmutableArrayListTest {
         System.out.println("Testing add with an exceeding index");
         withAdded = (ImmutableArrayList) withAdded.add(20, this.elemInt);
 
-
-
     }
 
     @Test (expected = IndexOutOfBoundsException.class)
     public void testAddAll(){
-        System.out.println("Testing with empty ImmutableArrayList..");
+        System.out.println("Testing addAll with empty ImmutableArrayList..");
         ImmutableArrayList empty = new ImmutableArrayList();
         empty = (ImmutableArrayList) empty.addAll(0, this.lst);
         assertArrayEquals(this.lst, empty.toArray());
 
-
-        System.out.println("Testing with non empty ImmutableArrayList");
+        System.out.println("Testing addAll with non empty ImmutableArrayList");
         ImmutableArrayList added = new ImmutableArrayList(this.lst);
         Object[] toAdd = new Object[] {0, 0, 0};
 
@@ -90,9 +87,105 @@ public class ImmutableArrayListTest {
         Object[] exp = new Object[] {1, 2, 0, 0, 0, 3, 4, 5, 6, 7};
         assertArrayEquals(exp, added.toArray());
 
-        System.out.println("Testing with exceeding index..");
+        System.out.println("Testing addAll with exceeding index..");
         added = (ImmutableArrayList) added.addAll(20, toAdd);
     }
 
 
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testGet(){
+        System.out.println("Testing get with non empty ImmutableArrayList..");
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        assertEquals(this.lst[0], few.get(0));
+
+        System.out.println("Testing get with empty ImmutableArrayList..");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        Object some = empty.get(3);
+
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testRemove(){
+        System.out.println("Testing remove with empty ImmutableArrayList..");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        ImmutableArrayList some = (ImmutableArrayList) empty.remove(0);
+        assertEquals(0, some.size());
+
+        System.out.println("Testing remove with non empty ImmutableArrayList..");
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        few = (ImmutableArrayList) few.remove(0);
+        Object[] exp = new Object[] {2, 3, 4, 5, 6, 7};
+        assertArrayEquals(exp, few.toArray());
+
+        System.out.println("Testing remove with exceeding index..");
+        few = (ImmutableArrayList) few.remove(25);
+
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testSet(){
+
+        System.out.println("Testing set with non empty ImmutableArrayList..");
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        few = (ImmutableArrayList) few.set(0, this.elemInt);
+        Object[] exp = new Object[] {0, 2, 3, 4, 5, 6, 7};
+        assertArrayEquals(exp, few.toArray());
+
+        System.out.println("Testing remove with exceeding index..");
+        few = (ImmutableArrayList) few.set(25, this.elemInt);
+
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testSetWithEmpty(){
+        System.out.println("Testing set with empty ImmutableArrayList..");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        ImmutableArrayList some = (ImmutableArrayList) empty.set(0, this.elemInt);
+    }
+
+    @Test
+    public void testIndexOf(){
+        System.out.println("Testing indexOf with empty ImmutableArrayList..");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        int someInd =  empty.indexOf(100);
+        assertEquals(-1, someInd);
+
+        System.out.println("Testing indexOf with non empty ImmutableArrayList..");
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        int index = few.indexOf(2);
+        assertEquals(1, index);
+
+        System.out.println("Testing indexOf with element not in ImmutableArrayList");
+        int index1 = few.indexOf(100);
+        assertEquals(-1, index1);
+
+    }
+
+    @Test
+    public void testSize(){
+        System.out.println("Testing size.. ");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        assertNotEquals(empty.size(), few.size());
+    }
+
+    @Test
+    public void testClear(){
+        System.out.println("Testing clear.. ");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        ImmutableArrayList cleared = (ImmutableArrayList) few.clear();
+        assertNotEquals(cleared.size(), few.size());
+        assertEquals(empty.size(), cleared.size());
+        assertArrayEquals(this.lst, few.toArray());
+    }
+
+    @Test
+    public void testIsEmpty(){
+        System.out.println("Testing isEmpty.. ");
+        ImmutableArrayList empty = new ImmutableArrayList();
+        ImmutableArrayList few = new ImmutableArrayList(this.lst);
+        assertTrue(empty.isEmpty());
+        assertFalse(few.isEmpty());
+    }
 }
