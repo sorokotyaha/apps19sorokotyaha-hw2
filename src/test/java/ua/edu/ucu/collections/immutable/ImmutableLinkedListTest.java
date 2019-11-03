@@ -188,5 +188,78 @@ public class ImmutableLinkedListTest {
         assertFalse(few.isEmpty());
     }
 
+    @Test
+    public void testAddFirst(){
+        System.out.println("Testing addFisrt with non Empty ImmutableLinkedList..");
+        ImmutableLinkedList added = this.lst.addFirst(9);
+        Object[] exp = new Object[]{9, 1, 2, 3, 4, 5, 6, 7};
+        assertArrayEquals(exp, added.toArray());
+
+        System.out.println("Testing addFirst with one element ImmutableLinkedList..");
+        ImmutableLinkedList addedOne = this.lstOneElement.addFirst(9);
+        Object[] expOne = new Object[]{9, 1};
+        assertArrayEquals(expOne, addedOne.toArray());
+
+
+        System.out.println("Testing addFirst with empty ImmutableLinkedList..");
+        ImmutableLinkedList addedEmpty = this.lstEmpty.addFirst(9);
+        Object[] expEmpty = new Object[]{9};
+        assertArrayEquals(expEmpty, addedEmpty.toArray());
+
+
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testGetFirst(){
+        System.out.println("Testing getFirts with non empty ImmutableLinkedList..");
+        Object elem = this.lst.getFirst();
+        assertEquals(this.lst.toArray()[0], elem);
+
+        System.out.println("Testing getFirst with one element ImmutableLinkedList..");
+        Object elem2 = this.lstOneElement.getFirst();
+        assertEquals(this.lstOneElement.toArray()[0], elem2);
+
+        System.out.println("Testing getFirst with empty ImmutableLinkedList..");
+        Object elem3 = this.lstEmpty.getFirst();
+
+    }
+
+    @Test
+    public void testAddLast(){
+        System.out.println("Testing addLast with non Empty ImmutableLinkedList..");
+        ImmutableLinkedList added = this.lst.addLast(9);
+        Object[] exp = new Object[]{1, 2, 3, 4, 5, 6, 7, 9};
+        assertArrayEquals(exp, added.toArray());
+
+        System.out.println("Testing addLast with one element ImmutableLinkedList..");
+        ImmutableLinkedList addedOne = this.lstOneElement.addLast(9);
+        Object[] expOne = new Object[]{1, 9};
+        assertArrayEquals(expOne, addedOne.toArray());
+
+
+        System.out.println("Testing addLast with empty ImmutableLinkedList..");
+        ImmutableLinkedList addedEmpty = this.lstEmpty.addLast(9);
+        Object[] expEmpty = new Object[]{9};
+        assertArrayEquals(expEmpty, addedEmpty.toArray());
+
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testGetLast(){
+        System.out.println("Testing getLast with non empty ImmutableLinkedList..");
+        Object elem = this.lst.getLast();
+        assertEquals(this.lst.toArray()[this.lst.size() - 1], elem);
+
+        System.out.println("Testing getLast with one element ImmutableLinkedList..");
+        Object elem2 = this.lstOneElement.getLast();
+        assertEquals(this.lstOneElement.toArray()[0], elem2);
+
+        System.out.println("Testing getLast with empty ImmutableLinkedList..");
+        Object elem3 = this.lstEmpty.getLast();
+
+    }
+
+
+
 
 }

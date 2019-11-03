@@ -2,7 +2,7 @@ package ua.edu.ucu.collections.immutable;
 
 
 import java.util.Arrays;
-import java.util.InputMismatchException;
+
 
 public class ImmutableArrayList implements ImmutableList {
     private Object[] lst;
@@ -15,7 +15,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     public ImmutableArrayList(Object[] list) {
-        //Class constructor with an argument of some Object array - integer, double, etc//
+        //Class constructor with an argument of some Object array
         checkEmptyArray(list);
         this.lst = Arrays.copyOf(list, list.length);
         this.size = list.length;
@@ -25,9 +25,9 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public ImmutableList add(Object elem) {
         // Adds element to the end of ImmutableArrayList
-        int size = this.size + 1;
-        Object[] larger = Arrays.copyOf(this.lst, size);
-        larger[size - 1] = elem;
+        int newSize = this.size + 1;
+        Object[] larger = Arrays.copyOf(this.lst, newSize);
+        larger[newSize - 1] = elem;
         return new ImmutableArrayList(larger);
     }
 
@@ -69,7 +69,8 @@ public class ImmutableArrayList implements ImmutableList {
         /* Copying all the elements from c and putting on the index position*/
         System.arraycopy(c, 0, temp, index, c.length);
         /* Copying all the rest elements from this.lst to temp*/
-        System.arraycopy(this.lst, index, temp, index + c.length, this.size - index);
+        System.arraycopy(this.lst, index, temp,
+                index + c.length, this.size - index);
         return new ImmutableArrayList(temp);
     }
 
@@ -87,7 +88,8 @@ public class ImmutableArrayList implements ImmutableList {
         checkForIndex(index);
         Object[] temp = new Object[this.size - 1];
         System.arraycopy(this.lst, 0, temp, 0, index);
-        System.arraycopy(this.lst, index + 1, temp, index, this.size - 1 - index);
+        System.arraycopy(this.lst, index + 1, temp,
+                index, this.size - 1 - index);
         return new ImmutableArrayList(temp);
     }
 

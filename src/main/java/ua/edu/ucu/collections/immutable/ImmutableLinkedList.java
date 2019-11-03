@@ -14,26 +14,12 @@ public class ImmutableLinkedList implements ImmutableList {
             this.element = elem;
             this.next = null;
         }
-
-
     }
 
 
     public ImmutableLinkedList() {
         this.head = null;
         this.size = 0;
-    }
-
-    private void checkForIndex(int i) {
-        if (i < 0 || i >= this.size) {
-            throw new IndexOutOfBoundsException();
-        }
-    }
-
-    private void checkEmptyArray(Object[] arr) {
-        if (arr.length == 0) {
-            throw new IllegalArgumentException("The list is empty!");
-        }
     }
 
     public ImmutableLinkedList(Object[] list) {
@@ -49,11 +35,22 @@ public class ImmutableLinkedList implements ImmutableList {
         this.size = list.length;
     }
 
+    private void checkForIndex(int i) {
+        if (i < 0 || i >= this.size) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    private void checkEmptyArray(Object[] arr) {
+        if (arr.length == 0) {
+            throw new IllegalArgumentException("The list is empty!");
+        }
+    }
+
     private ImmutableLinkedList linkedCopyOf() {
         if (this.size == 0) {
             return new ImmutableLinkedList();
         }
-
         return new ImmutableLinkedList(toArray());
     }
 
@@ -89,7 +86,8 @@ public class ImmutableLinkedList implements ImmutableList {
         /* Copying all the elements from c and putting on the index position*/
         System.arraycopy(c, 0, larger, index, c.length);
         /* Copying all the rest elements from tempArr to temp*/
-        System.arraycopy(tempArr, index, larger, index + c.length, this.size - index);
+        System.arraycopy(tempArr, index, larger,
+                index + c.length, this.size - index);
 
         return new ImmutableLinkedList(larger);
 
@@ -113,7 +111,8 @@ public class ImmutableLinkedList implements ImmutableList {
         Object[] temp = new Object[this.size - 1];
         System.arraycopy(lst, 0, temp, 0, index);
 
-        System.arraycopy(lst, index + 1, temp, index, this.size - 1 - index);
+        System.arraycopy(lst, index + 1, temp,
+                index, this.size - 1 - index);
 
         if (temp.length == 0) {
             return new ImmutableLinkedList();
@@ -182,5 +181,27 @@ public class ImmutableLinkedList implements ImmutableList {
     public String toString() {
         return Arrays.toString(toArray());
     }
+
+    public ImmutableLinkedList addFirst(Object e) {
+        if (isEmpty()) {
+            return (ImmutableLinkedList) add(e);
+        }
+        return (ImmutableLinkedList) add(0, e);
+    }
+
+    public ImmutableLinkedList addLast(Object e) {
+
+        return (ImmutableLinkedList) add(e);
+    }
+
+    public Object getFirst() {
+        return get(0);
+    }
+
+    public Object getLast() {
+        return get(this.size - 1);
+    }
+
+
 }
 
