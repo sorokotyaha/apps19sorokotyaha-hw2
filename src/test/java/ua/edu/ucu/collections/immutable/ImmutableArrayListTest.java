@@ -65,7 +65,7 @@ public class ImmutableArrayListTest {
 
         System.out.println("Testing add with index..");
         withAdded = (ImmutableArrayList) withAdded.add(4, this.elemInt);
-        assertArrayEquals(new Object[] {1, 2, 3, 4, 0, 5, 6, 7, 0} );
+        assertArrayEquals(new Object[] {1, 2, 3, 4, 0, 5, 6, 7, 0}, withAdded.toArray());
 
         System.out.println("Testing add with an exceeding index");
         withAdded = (ImmutableArrayList) withAdded.add(20, this.elemInt);

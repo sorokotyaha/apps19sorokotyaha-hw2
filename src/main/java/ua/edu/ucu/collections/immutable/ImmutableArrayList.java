@@ -90,7 +90,7 @@ public class ImmutableArrayList implements ImmutableList{
     @Override
     public ImmutableList set(int index, Object e) {
         checkForIndex(index);
-        checkEmptyArray();
+        checkEmptyArray(this.lst);
         Object[] temp = this.toArray();
         temp[index] = e;
         return new ImmutableArrayList(temp);
@@ -100,7 +100,7 @@ public class ImmutableArrayList implements ImmutableList{
     public int indexOf(Object e) {
         for (int i = 0; i <= this.size; i++){
             if (this.lst[i] == e){
-                return i
+                return i;
             }
         }
         return -1;
