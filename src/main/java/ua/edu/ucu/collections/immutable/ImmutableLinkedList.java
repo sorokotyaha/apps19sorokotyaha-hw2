@@ -55,17 +55,17 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList add(Object e) {
+    public ImmutableLinkedList add(Object e) {
         return addAll(new Object[]{e});
     }
 
     @Override
-    public ImmutableList add(int index, Object e) {
+    public ImmutableLinkedList add(int index, Object e) {
         return addAll(index, new Object[]{e});
     }
 
     @Override
-    public ImmutableList addAll(Object[] c) {
+    public ImmutableLinkedList addAll(Object[] c) {
         if (isEmpty()) {
             return new ImmutableLinkedList(c);
         }
@@ -76,8 +76,11 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList addAll(int index, Object[] c) {
-        checkForIndex(index);
+    public ImmutableLinkedList addAll(int index, Object[] c) {
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException();
+        }
+
         ImmutableLinkedList temp = linkedCopyOf();
         Object[] tempArr = temp.toArray();
         Object[] larger = new Object[this.size + c.length];
@@ -102,7 +105,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList remove(int index) {
+    public ImmutableLinkedList remove(int index) {
         if (isEmpty()) {
             return new ImmutableLinkedList();
         }
@@ -121,7 +124,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList set(int index, Object e) {
+    public ImmutableLinkedList set(int index, Object e) {
         checkForIndex(index);
         Object[] temp = toArray();
         temp[index] = e;
@@ -136,7 +139,7 @@ public class ImmutableLinkedList implements ImmutableList {
         int i = 0;
         Node curr = this.head;
         while (i < this.size) {
-            if (curr.element == e) {
+            if (curr.element.equals(e)) {
                 return i;
             }
             curr = curr.next;
@@ -151,7 +154,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList clear() {
+    public ImmutableLinkedList clear() {
         return new ImmutableLinkedList();
     }
 

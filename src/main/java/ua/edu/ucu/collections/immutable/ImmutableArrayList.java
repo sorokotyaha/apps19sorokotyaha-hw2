@@ -23,7 +23,7 @@ public class ImmutableArrayList implements ImmutableList {
 
 
     @Override
-    public ImmutableList add(Object elem) {
+    public ImmutableArrayList add(Object elem) {
         // Adds element to the end of ImmutableArrayList
         int newSize = this.size + 1;
         Object[] larger = Arrays.copyOf(this.lst, newSize);
@@ -44,9 +44,10 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList add(int index, Object e) {
-        checkForIndex(index);
-
+    public ImmutableArrayList add(int index, Object e) {
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException();
+        }
         Object[] temp = new Object[this.size + 1];
         System.arraycopy(this.lst, 0, temp, 0, index);
         temp[index] = e;
@@ -56,7 +57,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList addAll(Object[] c) {
+    public ImmutableArrayList addAll(Object[] c) {
         if (isEmpty()) {
             return new ImmutableArrayList(c);
         }
@@ -64,8 +65,10 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList addAll(int index, Object[] c) {
-        checkForIndex(index);
+    public ImmutableArrayList addAll(int index, Object[] c) {
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException();
+        }
         Object[] temp = new Object[c.length + this.size];
         /* Copying all the elements from lst from 0 to index exclusive */
         System.arraycopy(this.lst, 0, temp, 0, index);
@@ -84,7 +87,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList remove(int index) {
+    public ImmutableArrayList remove(int index) {
         if (this.size == 0) {
             return new ImmutableArrayList();
         }
@@ -97,7 +100,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList set(int index, Object e) {
+    public ImmutableArrayList set(int index, Object e) {
         checkForIndex(index);
         Object[] temp = this.toArray();
         temp[index] = e;
@@ -108,7 +111,7 @@ public class ImmutableArrayList implements ImmutableList {
     public int indexOf(Object e) {
 
         for (int i = 0; i < this.size; i++) {
-            if (this.lst[i] == e) {
+            if (this.lst[i].equals(e)) {
                 return i;
             }
         }
@@ -121,7 +124,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public ImmutableList clear() {
+    public ImmutableArrayList clear() {
         return new ImmutableArrayList();
     }
 
