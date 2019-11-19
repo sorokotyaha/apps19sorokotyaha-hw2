@@ -56,22 +56,18 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList add(Object e) {
-        return addAll(new Object[]{e});
+        return addAll(this.size, new Object[]{e});
     }
 
     @Override
     public ImmutableLinkedList add(int index, Object e) {
+
         return addAll(index, new Object[]{e});
     }
 
     @Override
     public ImmutableLinkedList addAll(Object[] c) {
-        if (isEmpty()) {
-            return new ImmutableLinkedList(c);
-        }
-        Object[] temp = Arrays.copyOf(toArray(), this.size + c.length);
-        System.arraycopy(c, 0, temp, this.size, c.length);
-        return new ImmutableLinkedList(temp);
+        return addAll(this.size, c);
 
     }
 

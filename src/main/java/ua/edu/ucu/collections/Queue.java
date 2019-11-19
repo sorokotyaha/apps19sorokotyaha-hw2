@@ -26,12 +26,12 @@ public class Queue {
             return null;
         }
         Object first = this.linkedlst.getFirst();
-        this.linkedlst = (ImmutableLinkedList) this.linkedlst.remove(0);
+        this.linkedlst = this.linkedlst.remove(0);
         return first;
     }
 
     public void enqueue(Object e) {
-        this.linkedlst = (ImmutableLinkedList) this.linkedlst.add(e);
+        this.linkedlst = this.linkedlst.add(e);
     }
 
     public int getSize() {

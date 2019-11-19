@@ -4,7 +4,7 @@ package ua.edu.ucu.collections.immutable;
 import java.util.Arrays;
 
 
-public class ImmutableArrayList implements ImmutableList {
+public final class ImmutableArrayList implements ImmutableList {
     private Object[] lst;
     private int size;
 
@@ -25,10 +25,8 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public ImmutableArrayList add(Object elem) {
         // Adds element to the end of ImmutableArrayList
-        int newSize = this.size + 1;
-        Object[] larger = Arrays.copyOf(this.lst, newSize);
-        larger[newSize - 1] = elem;
-        return new ImmutableArrayList(larger);
+
+        return addAll(this.size, new Object[]{elem});
     }
 
     private void checkForIndex(int i) {
@@ -45,22 +43,12 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList add(int index, Object e) {
-        if (index < 0 || index > this.size) {
-            throw new IndexOutOfBoundsException();
-        }
-        Object[] temp = new Object[this.size + 1];
-        System.arraycopy(this.lst, 0, temp, 0, index);
-        temp[index] = e;
-        System.arraycopy(this.lst, index, temp, index + 1, this.size - index);
+        return addAll(index, new Object[]{e});
 
-        return new ImmutableArrayList(temp);
     }
 
     @Override
     public ImmutableArrayList addAll(Object[] c) {
-        if (isEmpty()) {
-            return new ImmutableArrayList(c);
-        }
         return addAll(this.size(), c);
     }
 
@@ -88,7 +76,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList remove(int index) {
-        if (this.size == 0) {
+        if (isEmpty()) {
             return new ImmutableArrayList();
         }
         checkForIndex(index);

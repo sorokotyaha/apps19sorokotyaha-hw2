@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ImmutableArrayListTest {
+public final class ImmutableArrayListTest {
 
     private Object[] lst;
     private Object[] lstEmpty;
